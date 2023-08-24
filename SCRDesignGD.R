@@ -211,16 +211,12 @@ library(raster)
 library(gdistance)
 library(kofnGA)
 
-# reduce resolution of mesh so have fewer possible camera locations
-cellsize <- 2/3 * sigma
-red_factor <- cellsize[1] / attr(msk, "spacing")
-if ((trunc(red_factor) - red_factor) != 0) stop("Check spacing, causing non-integer reduction factor for mesh")
+# create mask and then a buffered mask (the mask used for the designs)
 mask <- secr::raster(msk)
 mask_df <- data.frame(coordinates(mask))
 mask <- read.mask(data = mask_df)
 plot(mask, dots=F)
 
-# create a buffered mask (the mask used for the designs) from the mask above
 buffer_mult <- ceiling(buffer / cellsize)
 newmask_df <- expand.grid(x = seq(from = min(mask_df$x) - buffer_mult * cellsize, 
                                   to = max(mask_df$x) + buffer_mult * cellsize, 
@@ -235,11 +231,13 @@ newmask <- read.mask(data = newmask_df)
 plot(newmask,axes=T)
 
 # create grid of possible trap locations
+# reduce resolution of mesh so have fewer possible camera locations
 cellsize <- 2/3 * sigma
 red_factor <- cellsize[1] / attr(msk, "spacing")
 if ((trunc(red_factor) - red_factor) != 0) stop("Check spacing, causing non-integer reduction factor for mesh")
+
 alltraps_df <- data.frame(coordinates(data.frame(alltrps)))
-alltraps <- as.matrix(alltraps_df)[,c(1,2)]
+alltraps <- as.matrix(alltraps_df)
 plot(read.mask(data = alltraps_df), col = 'blue', add = TRUE, axes =T)  
 
 #####################################
