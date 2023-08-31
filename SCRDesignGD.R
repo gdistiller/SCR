@@ -271,7 +271,6 @@ grid_traps$dist2pt <- (grid_traps$x - xy_rand$x)^2 + (grid_traps$y - xy_rand$y)^
 grid_traps <- grid_traps %>% filter(rank(dist2pt, ties.method = "random") <= n) %>% mutate(trap_id = 1)
 grid_traps_all <- rbind(grid_traps_all, cbind(nT = n, lambda0 = lambda0, sigma = sigma, buffer = buffer, dt = dt, grid_traps))
 
-
 ######################
 #optimised grid
 ######################

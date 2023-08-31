@@ -231,11 +231,11 @@ Sims1 <- function(mask = NULL, alltraps, nT, sigmaF, sigmaM, lambda0F, lambda0M,
   
   #first use GA to get Enr designs, both mask and alltrps are 2/3 sigma spacing
   optF <- GAoptimTest(mask = mask.buffF[[1]], alltraps = alltraps, ntraps = nT, detectpar = list(lambda0 = lambda0F, sigma = sigmaF), 
-                      criterion = 4, detectfn = 'HHN', D = DF, noccasions = 1, ngen = ngen, verbose = 1)
+                      criterion = 4, detectfn = 'HHN', D = DF, noccasions = 1, ngen = ngen, verbose = 0)
   optM <- GAoptimTest(mask = mask.buffM[[1]], alltraps = alltraps, ntraps = nT, detectpar = list(lambda0 = lambda0M, sigma = sigmaM), 
-                      criterion = 4, detectfn = 'HHN', D = DM, noccasions = 1, ngen = ngen, verbose = 1)
+                      criterion = 4, detectfn = 'HHN', D = DM, noccasions = 1, ngen = ngen, verbose = 0)
   optBoth <- GAoptimTest(mask = mask.buffM[[1]], alltraps = alltraps, ntraps = nT, detectpar = list(lambda0 = c(lambda0F,lambda0M), sigma = c(sigmaF,sigmaM)), 
-                         criterion = 4, detectfn = 'HHN', D = c(DF,DM), noccasions = 1, ngen = ngen, verbose = 1)
+                         criterion = 4, detectfn = 'HHN', D = c(DF,DM), noccasions = 1, ngen = ngen, verbose = 0)
   
   Proposed.Traps.Enr[[1]] <- optF$optimaltraps
   Proposed.Traps.Enr[[2]] <- optM$optimaltraps
